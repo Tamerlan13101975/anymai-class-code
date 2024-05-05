@@ -48,8 +48,17 @@ class Veterinarian(Employee):
                 zoo_data["employees"].append({"name": employee.name, "role": employee.role})
             json.dump(zoo_data, f)
 
-
-
+    def load_zoo_info(filename):
+        with open(filename, "r") as f:
+            zoo_data = json.load(f)
+        zoo = Zoo()
+        for animal_data in zoo_data["animals"]:
+            animal = Animal(animal_data["name"], animal_data["age"])
+            zoo.add_animal(animal)
+        for employee_data in zoo_data["employees"]:
+            employee = Employee(employee_data["name"], employee_data["role"])
+            zoo.add_employee(employee)
+        return zoo
 
 
 
